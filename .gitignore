@@ -1,0 +1,51 @@
+# Dependencies
+node_modules/
+.npm/
+
+# Python
+.venv/
+venv/
+__pycache__/
+*.py[cod]
+*.egg-info/
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+
+# Build outputs
+dist/
+build/
+*.tsbuildinfo
+apps/web/dist/
+
+# Local databases and generated artifacts
+output/
+!output/.gitkeep
+*.db
+*.db-wal
+*.db-shm
+
+# Media / models (never commit large or private assets)
+*.mp4
+*.mkv
+*.mov
+*.avi
+*.onnx
+*.engine
+*.plan
+*.trt
+*.pt
+*.weights
+
+# Secrets and local config
+.env
+.env.*
+!.env.example
+
+# Editor / OS
+.DS_Store
+Thumbs.db
+.idea/
+.vscode/*
+!.vscode/extensions.json
+*.log

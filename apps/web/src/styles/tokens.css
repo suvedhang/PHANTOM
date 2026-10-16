@@ -1,0 +1,114 @@
+/*
+ * PHANTOM design tokens.
+ *
+ * Single source of truth for color, spacing, radius, shadow, and typography.
+ * Components must consume these variables rather than hard-coding values.
+ * The palette is a dark operations-center theme: neutral canvas, restrained
+ * accent, and semantic status colors that also pair with labels/icons so
+ * severity is never encoded by color alone.
+ */
+:root {
+  /* Surfaces (dark neutral canvas) */
+  --bg-canvas: #0a0d12;
+  --bg-elevated: #10141b;
+  --bg-panel: #141922;
+  --bg-panel-2: #1a212c;
+  --bg-inset: #0c1017;
+  --bg-hover: #1e2733;
+
+  /* Borders and separators */
+  --border-subtle: #232c38;
+  --border-strong: #33404f;
+  --border-accent: #3b6fb8;
+
+  /* Text */
+  --text-primary: #e6edf5;
+  --text-secondary: #a9b6c6;
+  --text-muted: #728092;
+  --text-inverse: #06090d;
+
+  /* Accent (single restrained accent) */
+  --accent: #4c8dff;
+  --accent-strong: #2f6fe0;
+  --accent-soft: rgba(76, 141, 255, 0.14);
+
+  /* Semantic status */
+  --ok: #37b979;
+  --ok-soft: rgba(55, 185, 121, 0.14);
+  --warn: #e0a82e;
+  --warn-soft: rgba(224, 168, 46, 0.14);
+  --danger: #e5484d;
+  --danger-soft: rgba(229, 72, 77, 0.14);
+  --info: #4c8dff;
+  --info-soft: rgba(76, 141, 255, 0.14);
+  --neutral: #8b97a6;
+  --neutral-soft: rgba(139, 151, 166, 0.14);
+
+  /* Severity mapping */
+  --sev-critical: #ff5c61;
+  --sev-critical-soft: rgba(255, 92, 97, 0.16);
+  --sev-high: #ff8c42;
+  --sev-high-soft: rgba(255, 140, 66, 0.16);
+  --sev-medium: #e0a82e;
+  --sev-medium-soft: rgba(224, 168, 46, 0.16);
+  --sev-low: #4c8dff;
+  --sev-low-soft: rgba(76, 141, 255, 0.16);
+  --sev-info: #8b97a6;
+  --sev-info-soft: rgba(139, 151, 166, 0.16);
+
+  /* Spacing scale */
+  --sp-1: 4px;
+  --sp-2: 8px;
+  --sp-3: 12px;
+  --sp-4: 16px;
+  --sp-5: 20px;
+  --sp-6: 24px;
+  --sp-8: 32px;
+  --sp-10: 40px;
+
+  /* Radii */
+  --radius-sm: 4px;
+  --radius-md: 8px;
+  --radius-lg: 12px;
+  --radius-pill: 999px;
+
+  /* Shadows */
+  --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.4);
+  --shadow-md: 0 6px 20px rgba(0, 0, 0, 0.45);
+  --shadow-lg: 0 18px 48px rgba(0, 0, 0, 0.55);
+
+  /* Typography */
+  --font-sans: ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto,
+    "Helvetica Neue", Arial, sans-serif;
+  --font-mono: ui-monospace, "Cascadia Code", "SFMono-Regular", "Menlo",
+    "Consolas", monospace;
+
+  --fs-xs: 11px;
+  --fs-sm: 12px;
+  --fs-md: 13px;
+  --fs-base: 14px;
+  --fs-lg: 16px;
+  --fs-xl: 20px;
+  --fs-2xl: 26px;
+  --fs-3xl: 34px;
+
+  --lh-tight: 1.2;
+  --lh-normal: 1.5;
+
+  /* Layout */
+  --sidebar-w: 224px;
+  --topbar-h: 52px;
+  --strip-h: 34px;
+  --content-max: 1440px;
+
+  /* Motion (respected reduced-motion below) */
+  --transition-fast: 120ms ease;
+  --transition-med: 200ms ease;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  :root {
+    --transition-fast: 0ms;
+    --transition-med: 0ms;
+  }
+}

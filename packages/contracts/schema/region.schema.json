@@ -1,0 +1,39 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://phantom.local/schema/region.schema.json",
+  "title": "RegionModel",
+  "description": "A named polygon in normalized image-space used by region-aware rules. Geometry is explicitly configured, never inferred.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["region_id", "name", "polygon", "enabled", "version"],
+  "properties": {
+    "region_id": { "type": "string" },
+    "name": { "type": "string", "minLength": 1 },
+    "polygon": { "$ref": "#/$defs/polygon" },
+    "enabled": { "type": "boolean" },
+    "version": { "type": "integer", "minimum": 1 }
+  },
+  "$defs": {
+    "point": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["x", "y"],
+      "properties": {
+        "x": { "type": "number", "minimum": 0, "maximum": 1 },
+        "y": { "type": "number", "minimum": 0, "maximum": 1 }
+      }
+    },
+    "polygon": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["points"],
+      "properties": {
+        "points": {
+          "type": "array",
+          "minItems": 3,
+          "items": { "$ref": "#/$defs/point" }
+        }
+      }
+    }
+  }
+}

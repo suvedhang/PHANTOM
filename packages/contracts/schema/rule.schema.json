@@ -1,0 +1,79 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://phantom.local/schema/rule.schema.json",
+  "title": "RuleDefinition",
+  "description": "A deterministic rule definition evaluated against normalized observations.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "rule_id",
+    "name",
+    "description",
+    "type",
+    "config",
+    "severity",
+    "enabled",
+    "version",
+    "created_at",
+    "updated_at"
+  ],
+  "properties": {
+    "rule_id": { "type": "string" },
+    "name": { "type": "string", "minLength": 1 },
+    "description": { "type": "string" },
+    "type": {
+      "type": "string",
+      "enum": [
+        "region_entry",
+        "region_exit",
+        "dwell_time",
+        "wrong_way",
+        "count_threshold",
+        "sequence",
+        "unexpected_presence",
+        "motionless_track",
+        "boundary_crossing",
+        "baseline_deviation"
+      ]
+    },
+    "config": { "$ref": "#/$defs/config" },
+    "severity": {
+      "type": "string",
+      "enum": ["info", "low", "medium", "high", "critical"]
+    },
+    "enabled": { "type": "boolean" },
+    "version": { "type": "integer", "minimum": 1 },
+    "created_at": { "type": "string", "format": "date-time" },
+    "updated_at": { "type": "string", "format": "date-time" }
+  },
+  "$defs": {
+    "config": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "region_id",
+        "class_filter",
+        "dwell_seconds",
+        "count_threshold",
+        "sustain_seconds",
+        "allowed_direction_deg",
+        "min_displacement",
+        "min_confidence",
+        "cooldown_seconds",
+        "dedup_seconds"
+      ],
+      "properties": {
+        "region_id": { "type": ["string", "null"] },
+        "class_filter": { "type": "array", "items": { "type": "string" } },
+        "dwell_seconds": { "type": ["number", "null"], "minimum": 0 },
+        "count_threshold": { "type": ["integer", "null"], "minimum": 0 },
+        "sustain_seconds": { "type": ["number", "null"], "minimum": 0 },
+        "allowed_direction_deg": { "type": ["number", "null"] },
+        "min_displacement": { "type": ["number", "null"], "minimum": 0 },
+        "min_confidence": { "type": ["number", "null"], "minimum": 0, "maximum": 1 },
+        "cooldown_seconds": { "type": "number", "minimum": 0 },
+        "dedup_seconds": { "type": "number", "minimum": 0 }
+      }
+    }
+  }
+}

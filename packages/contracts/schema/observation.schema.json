@@ -1,0 +1,79 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://phantom.local/schema/observation.schema.json",
+  "title": "ObservationFrame",
+  "description": "A normalized observation frame broadcast over the WebSocket `observation` message. Geometry is normalized image-space in [0,1], not metres.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "observation_id",
+    "run_id",
+    "source_id",
+    "frame_index",
+    "timestamp",
+    "is_simulated",
+    "entities",
+    "tracks"
+  ],
+  "properties": {
+    "observation_id": { "type": "string" },
+    "run_id": { "type": "string" },
+    "source_id": { "type": "string" },
+    "frame_index": { "type": "integer", "minimum": 0 },
+    "timestamp": { "type": "string", "format": "date-time" },
+    "is_simulated": { "type": "boolean" },
+    "entities": { "type": "array", "items": { "$ref": "#/$defs/entity" } },
+    "tracks": { "type": "array", "items": { "$ref": "#/$defs/track" } }
+  },
+  "$defs": {
+    "point": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["x", "y"],
+      "properties": {
+        "x": { "type": "number", "minimum": 0, "maximum": 1 },
+        "y": { "type": "number", "minimum": 0, "maximum": 1 }
+      }
+    },
+    "bbox": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["x_min", "y_min", "x_max", "y_max"],
+      "properties": {
+        "x_min": { "type": "number", "minimum": 0, "maximum": 1 },
+        "y_min": { "type": "number", "minimum": 0, "maximum": 1 },
+        "x_max": { "type": "number", "minimum": 0, "maximum": 1 },
+        "y_max": { "type": "number", "minimum": 0, "maximum": 1 }
+      }
+    },
+    "entity": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["track_id", "class_label", "bbox", "confidence", "provenance"],
+      "properties": {
+        "track_id": { "type": ["string", "null"] },
+        "class_label": { "type": "string" },
+        "bbox": { "oneOf": [{ "$ref": "#/$defs/bbox" }, { "type": "null" }] },
+        "confidence": { "type": ["number", "null"], "minimum": 0, "maximum": 1 },
+        "provenance": {
+          "type": "string",
+          "enum": ["observed", "derived", "configured", "simulated"]
+        }
+      }
+    },
+    "track": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["track_id", "class_label", "provenance", "recent_positions"],
+      "properties": {
+        "track_id": { "type": "string" },
+        "class_label": { "type": "string" },
+        "provenance": {
+          "type": "string",
+          "enum": ["observed", "derived", "configured", "simulated"]
+        },
+        "recent_positions": { "type": "array", "items": { "$ref": "#/$defs/point" } }
+      }
+    }
+  }
+}
